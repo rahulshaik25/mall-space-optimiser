@@ -27,8 +27,25 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
+interface Complaint {
+  id: string;
+  title: string;
+  category: string;
+  priority: string;
+  status: string;
+  location: string;
+  reporter: string;
+  contact: string;
+  phone: string;
+  description: string;
+  createdAt: string;
+  assignedTo: string;
+  estimatedResolution?: string;
+  resolvedAt?: string;
+}
+
 const ComplaintManagement = () => {
-  const [complaints, setComplaints] = useState([
+  const [complaints, setComplaints] = useState<Complaint[]>([
     {
       id: 'CMP001',
       title: 'AC Not Working in Shop A-101',
@@ -153,7 +170,7 @@ const ComplaintManagement = () => {
       return;
     }
 
-    const complaint = {
+    const complaint: Complaint = {
       id: `CMP${String(complaints.length + 1).padStart(3, '0')}`,
       ...newComplaint,
       status: 'open',
@@ -180,7 +197,7 @@ const ComplaintManagement = () => {
     });
   };
 
-  const updateComplaintStatus = (complaintId, newStatus) => {
+  const updateComplaintStatus = (complaintId: string, newStatus: string) => {
     setComplaints(complaints.map(complaint => 
       complaint.id === complaintId 
         ? { 
